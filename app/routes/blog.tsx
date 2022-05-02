@@ -1,5 +1,5 @@
 import { LinksFunction } from "@remix-run/node";
-import { Outlet, useLocation } from "@remix-run/react";
+import { Outlet, useLocation, useMatches } from "@remix-run/react";
 import hljsStyles from "highlight.js/styles/base16/dracula.css";
 
 export const links: LinksFunction = () => {
@@ -12,8 +12,10 @@ export const links: LinksFunction = () => {
 };
 
 export default function Blog() {
-  const { pathname } = useLocation();
-  return pathname.endsWith("/blog") || pathname.endsWith("/blog/") ? (
+  const isIndex = useMatches().some(
+    (match) => match.id === "routes/blog/index"
+  );
+  return isIndex ? (
     <Outlet />
   ) : (
     <div className="flex justify-center py-8">

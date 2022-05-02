@@ -19,7 +19,6 @@ export const loader: LoaderFunction = () => {
 
 export default function BlogIndex() {
   const { blogs }: { blogs: BlogData[] } = useLoaderData();
-  console.log({ blogs });
   return (
     <div className="flex justify-center">
       <div className="w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">

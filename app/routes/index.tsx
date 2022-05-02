@@ -30,27 +30,25 @@ export default function Index() {
           .
         </p>
 
-        <p>
-          My socials are:
-          <ul>
-            <li>
-              <a
-                href="https://twitter.com/josephlozanodev"
-                className="text-primary-500 hover:text-primary-60"
-              >
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://linkedin.com/in/joseph-lozano"
-                className="text-primary-500 hover:text-primary-60"
-              >
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </p>
+        <p>My socials are:</p>
+        <ul>
+          <li>
+            <a
+              href="https://twitter.com/josephlozanodev"
+              className="text-primary-500 hover:text-primary-60"
+            >
+              Twitter
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://linkedin.com/in/joseph-lozano"
+              className="text-primary-500 hover:text-primary-60"
+            >
+              LinkedIn
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

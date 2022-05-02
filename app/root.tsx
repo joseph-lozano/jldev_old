@@ -26,7 +26,6 @@ const bodyClass =
   "min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50 dark:from-secondary-800 dark:to-primary-800";
 export function CatchBoundary() {
   const caught = useCatch();
-  console.log(caught);
   return (
     <html>
       <head>
