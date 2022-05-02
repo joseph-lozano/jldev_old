@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
 } from "@remix-run/react";
 import Header from "./components/header";
 
@@ -17,9 +18,34 @@ export function links() {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "josephlozano.dev",
   viewport: "width=device-width,initial-scale=1",
 });
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  console.log(caught);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50">
+        <Header />
+        {caught.status == 404 && (
+          <div className="text-center">
+            <h1 className="text-2xl font-mono font-bold text-gray-700">
+              not found
+            </h1>
+          </div>
+        )}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export default function App() {
   return (
