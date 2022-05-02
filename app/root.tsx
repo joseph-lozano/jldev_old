@@ -22,6 +22,8 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+const bodyClass =
+  "min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50 dark:from-secondary-800 dark:to-primary-800";
 export function CatchBoundary() {
   const caught = useCatch();
   console.log(caught);
@@ -32,7 +34,7 @@ export function CatchBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50">
+      <body className={bodyClass}>
         <Header />
         {caught.status == 404 && (
           <div className="text-center">
@@ -54,7 +56,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50">
+      <body className={bodyClass}>
         <Header />
         <Outlet />
         <ScrollRestoration />

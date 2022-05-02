@@ -3,7 +3,7 @@ import { Link } from "@remix-run/react";
 export default function Index() {
   return (
     <div className="flex justify-center px-3">
-      <div className="prose max-w-md lg:max-w-lg xl:max-w-xl">
+      <div className="prose dark:prose-invert max-w-md lg:max-w-lg xl:max-w-xl">
         <p>
           Since April 2021 I have been a senior software consultant at{" "}
           <a

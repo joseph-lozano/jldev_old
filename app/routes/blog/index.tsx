@@ -1,10 +1,6 @@
 import { LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import fs from "fs";
-import { join } from "path";
-import { parse } from "yaml";
-
-const blogPath = "app/routes/blog/";
+import * as helloWorld from "./hello-world.mdx";
 
 type BlogData = {
   title: string;
@@ -14,27 +10,16 @@ type BlogData = {
 };
 
 export const loader: LoaderFunction = () => {
-  let blogs: Array<BlogData> = [];
-  blogs = fs
-    .readdirSync(blogPath)
-    .filter((file) => file.endsWith(".mdx"))
-    .map(getBlogData)
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+  let blogs: BlogData[] = [helloWorld].map((mdx) => ({
+    slug: mdx.filename.replace(".mdx", ""),
+    ...mdx.attributes,
+  }));
   return { blogs };
 };
 
-function getBlogData(file: string): BlogData {
-  const yaml = fs
-    .readFileSync(join(blogPath, file))
-    .toString()
-    .split("---", 3)[1];
-  const { title, date, description } = parse(yaml);
-  const slug = file.replace(".mdx", "");
-  return { title, date, description, slug };
-}
-
 export default function BlogIndex() {
-  const { blogs }: { blogs: Array<BlogData> } = useLoaderData();
+  const { blogs }: { blogs: BlogData[] } = useLoaderData();
+  console.log({ blogs });
   return (
     <div className="flex justify-center">
       <div className="w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
@@ -42,17 +27,23 @@ export default function BlogIndex() {
           {blogs.map((blog) => (
             <li key={blog.slug} className="py-4">
               <Link to={blog.slug}>
-                <div className="flex items-center space-x-3 border py-4 px-3 shadow-lg hover:shadow-xl">
+                <div className="flex items-center space-x-3 border py-4 px-3 shadow-lg hover:shadow-2xl dark:shadow-white dark:hover:shadow-white dark:hover:shadow-lg dark:shadow-md">
                   <div className="text-xl p-2 font-black font-planet-benson-2 bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text text-transparent hover:font-normal">
                     {"{/}"}
                   </div>
 
                   <div className="flex-1 space-y-1">
                     <div className="flex flex-col sm:flex-row items-center justify-between">
-                      <h3 className="text-sm font-medium">{blog.title}</h3>
-                      <p className="text-sm text-gray-500">{blog.date}</p>
+                      <h3 className="text-sm font-medium dark:text-gray-200 text-gray-800">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
+                        {new Date(blog.date).toDateString()}
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-500">{blog.description}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-300">
+                      {blog.description}
+                    </p>
                   </div>
                 </div>
               </Link>
