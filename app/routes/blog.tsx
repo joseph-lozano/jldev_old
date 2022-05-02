@@ -12,9 +12,7 @@ export const links: LinksFunction = () => {
 };
 
 export default function Blog() {
-  const isIndex = useMatches().some(
-    (match) => match.handle && match.handle.isIndex
-  );
+  const isIndex = useMatches().some((match) => match.handle?.isIndex);
   return isIndex ? (
     <Outlet />
   ) : (
