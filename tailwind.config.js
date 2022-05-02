@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         "planet-benson-2": ["PlanetBenson2", "sans-serif"],
+        mono: ["DankMono", "mono"],
       },
       colors: {
         primary: {

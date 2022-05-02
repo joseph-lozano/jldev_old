@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Header from "./components/header";
 
 import styles from "./styles/app.css";
 
@@ -27,7 +28,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-gradient-to-tr from-secondary-100 to-primary-50">
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
