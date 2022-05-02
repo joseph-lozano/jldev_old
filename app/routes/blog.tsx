@@ -13,7 +13,7 @@ export const links: LinksFunction = () => {
 
 export default function Blog() {
   const isIndex = useMatches().some(
-    (match) => match.id === "routes/blog/index"
+    (match) => match.handle && match.handle.isIndex
   );
   return isIndex ? (
     <Outlet />

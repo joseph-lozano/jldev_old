@@ -17,6 +17,8 @@ export const loader: LoaderFunction = () => {
   return { blogs };
 };
 
+export let handle = { isIndex: true };
+
 export default function BlogIndex() {
   const { blogs }: { blogs: BlogData[] } = useLoaderData();
   return (
