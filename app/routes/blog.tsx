@@ -16,8 +16,8 @@ export default function Blog() {
   return isIndex ? (
     <Outlet />
   ) : (
-    <div className="flex justify-center py-8">
-      <div className="prose prose-secondary dark:prose-invert xl:prose-lg ">
+    <div className="md:flex md:justify-center py-8 px-6">
+      <div className="prose prose-secondary dark:prose-invert md:prose-lg ">
         <Outlet />
       </div>
     </div>
