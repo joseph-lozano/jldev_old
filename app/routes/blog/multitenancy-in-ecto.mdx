@@ -1,0 +1,30 @@
+---
+title: "Multitenancy in Ecto"
+date: 2022-05-05
+description: "How to make sure a user can only access data that belongs to them."
+draft: true
+meta:
+  title: "Multitenancy in Ecto | josephlozano.dev"
+---
+
+import Callout from "../../components/callout";
+
+# What is Multitenancy?
+
+## Multitenancy is a way to make sure a user can only access data that belongs to them. Here's how to do it in Phoenix and Ecto.
+
+Many Phoenix applications are built to serve multiple users. In some cases, a users data is public information. Other users are free to view it. An example of this application might be a blog.
+
+Other types of applications are meant to have only private data. Think of a todo app, or project management app. We wouldn't want to have a user see the data of another user.
+
+##### A tenant is a group of users who share access the an application with specific privileges.
+
+2 ways of doing this are 1) To have a separate database instance for each tenant, or 2) To have a separate schema for each tenant. These have a major drawback that onboarding new tenants is expensive and can be a pain.
+
+A third way is to have a single database instance, but to have a `tenant_id` column on **all** tables that have tenant specific data.
+
+### Here's how it looks in practice.
+
+Our starting point will be a fresh Phoenix 1.6 application in which `mix phx.gen.auth` had just been run. This generates a users table, but in order to group users into tenants, we need to add a `tenants` table.
+
+<Callout title="Table names" body='You can also call "tenants" something else, such as "orgs", "groups", or "companies". Just adjust the module and function names as necessary.' />

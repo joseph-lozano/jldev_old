@@ -1,6 +1,7 @@
 import { LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import * as helloWorld from "./hello-world.mdx";
+import * as multitenancyInEcto from "./multitenancy-in-ecto.mdx";
 
 type BlogData = {
   title: string;
@@ -10,10 +11,13 @@ type BlogData = {
 };
 
 export const loader: LoaderFunction = () => {
-  let blogs: BlogData[] = [helloWorld].map((mdx) => ({
-    slug: mdx.filename.replace(".mdx", ""),
-    ...mdx.attributes,
-  }));
+  let blogs: BlogData[] = [helloWorld, multitenancyInEcto]
+    .map((mdx) => ({
+      slug: mdx.filename.replace(".mdx", ""),
+      ...mdx.attributes,
+    }))
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .filter(({ draft }) => !draft || process.env.NODE_ENV === "development");
   return { blogs };
 };
 
@@ -23,7 +27,7 @@ export default function BlogIndex() {
   const { blogs }: { blogs: BlogData[] } = useLoaderData();
   return (
     <div className="flex justify-center">
-      <div className="w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4">
+      <div className="w-3/4 md:w-2/3 lg:w-1/2 2xl:w-1/3">
         <ul>
           {blogs.map((blog) => (
             <li key={blog.slug} className="py-4">
@@ -42,7 +46,7 @@ export default function BlogIndex() {
                         {new Date(blog.date).toDateString()}
                       </p>
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-300">
+                    <p className="text-sm hidden sm:block text-gray-500 dark:text-gray-300">
                       {blog.description}
                     </p>
                   </div>
